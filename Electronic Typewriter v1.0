@@ -1,0 +1,43 @@
+# Electronic Typewriter v1.0
+#A Raspberry Pi Project - by Andy Cretcher
+
+#imports
+import time
+import pyautogui
+import os
+import RPi.GPIO as GPIO
+import warnings
+
+
+#Developers Tools
+print(pyautogui.size())
+time.sleep(4)
+print(pyautogui.position())
+
+#GPIO Setup
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(16,GPIO.IN)
+
+#Boot to FocusWriter
+warnings.filterwarnings("ignore")
+os.system("focuswriter")
+
+
+#Print Loop and Wait for Button Push
+def printloop():
+  while GPIO.input(16)==0:
+   pass
+  else:
+   pyautogui.hotkey('ctrl', 'p')
+   time.sleep(1)
+   print("print completed")
+   GPIO.cleanup()
+   printloop() 
+   
+printloop()
+ 
+
+
+
+
+ 
